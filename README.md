@@ -1,6 +1,6 @@
 # Dotfiles
 
-My dotfiles for Arch Linux (EndeavourOS) on my Asus Zenbook S16.  These are specifically optimized to Wayland and Hyprland with my specific preferences for a tiling window manager.
+My dotfiles for Arch Linux (EndeavourOS) on my Asus Zenbook S16.  These are specifically built for me setup, with Wayland and Hyprland, and my specific preferences for how I use a tiling window manager.  
 
 A lot of these are optimzed for the fact that I frequently use it in a docked config on a big monitor with Thunderbolt.
 
