@@ -52,10 +52,5 @@
     }
   ],
   "final_space": true,
-  "transient_prompt": {
-    "background": "transparent",
-    "foreground": "white",
-    "template": "➜ "
-  },
   "version": 3
 }
