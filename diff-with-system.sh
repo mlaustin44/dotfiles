@@ -158,6 +158,34 @@ for dir in "${REPO_DIR}/.config"/*; do
 done
 
 echo
+echo -e "${BLUE}=== /etc Configuration Files ===${NC}"
+if [ -d "${REPO_DIR}/etc" ]; then
+    diff_item "${REPO_DIR}/etc/tlp.conf" "/etc/tlp.conf" "/etc/tlp.conf"
+    diff_item "${REPO_DIR}/etc/greetd/config.toml" "/etc/greetd/config.toml" "/etc/greetd/config.toml"
+    diff_item "${REPO_DIR}/etc/systemd/logind.conf" "/etc/systemd/logind.conf" "/etc/systemd/logind.conf"
+    diff_item "${REPO_DIR}/etc/keyd/default.conf" "/etc/keyd/default.conf" "/etc/keyd/default.conf"
+    
+    # udev rules
+    for rule in "${REPO_DIR}/etc/udev/rules.d"/*.rules; do
+        if [ -f "$rule" ]; then
+            rule_name=$(basename "$rule")
+            diff_item "$rule" "/etc/udev/rules.d/$rule_name" "/etc/udev/rules.d/$rule_name"
+        fi
+    done
+fi
+
+echo
+echo -e "${BLUE}=== /usr/local/bin Scripts ===${NC}"
+if [ -d "${REPO_DIR}/scripts" ]; then
+    for script in "${REPO_DIR}/scripts"/*; do
+        if [ -f "$script" ]; then
+            script_name=$(basename "$script")
+            diff_item "$script" "/usr/local/bin/$script_name" "/usr/local/bin/$script_name"
+        fi
+    done
+fi
+
+echo
 echo -e "${BLUE}=== Summary ===${NC}"
 if [ $DIFFERENCES_FOUND -eq 0 ]; then
     echo -e "${GREEN}All files are in sync!${NC}"

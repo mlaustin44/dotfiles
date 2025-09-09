@@ -61,14 +61,12 @@ echo -e "${BLUE}Syncing home directory dotfiles...${NC}"
 sync_item "${REPO_DIR}/.zshrc" "$HOME/.zshrc"
 sync_item "${REPO_DIR}/.gitconfig" "$HOME/.gitconfig"
 
-# Special handling for .vimrc (it's in .config/vim/ in the repo)
 if [ -f "${REPO_DIR}/.config/vim/.vimrc" ]; then
     sync_item "${REPO_DIR}/.config/vim/.vimrc" "$HOME/.vimrc"
 fi
 
 echo
 
-# Sync .config subdirectories
 echo -e "${BLUE}Syncing .config subdirectories...${NC}"
 for dir in "${REPO_DIR}/.config"/*; do
     if [ -d "$dir" ]; then
@@ -87,5 +85,44 @@ for dir in "${REPO_DIR}/.config"/*; do
 done
 
 echo
-echo -e "${GREEN}=== Sync complete! ===${NC}"
+
+if [[ "$1" == "--system" ]]; then
+    echo -e "${BLUE}=== Syncing system files (requires sudo) ===${NC}"
+    echo -e "${YELLOW}You'll need to run the following commands manually:${NC}"
+    echo
+    
+    if [ -d "${REPO_DIR}/etc" ]; then
+        echo -e "${CYAN}# /etc configuration files:${NC}"
+        echo "sudo cp ${REPO_DIR}/etc/greetd/config.toml /etc/greetd/config.toml"
+        echo "sudo cp ${REPO_DIR}/etc/systemd/logind.conf /etc/systemd/logind.conf"
+        echo "sudo cp ${REPO_DIR}/etc/tlp.conf /etc/tlp.conf"
+        echo "sudo cp ${REPO_DIR}/etc/keyd/default.conf /etc/keyd/default.conf"
+        
+        for rule in "${REPO_DIR}/etc/udev/rules.d"/*.rules; do
+            if [ -f "$rule" ]; then
+                echo "sudo cp $rule /etc/udev/rules.d/$(basename "$rule")"
+            fi
+        done
+    fi
+    
+    echo
+    
+    if [ -d "${REPO_DIR}/scripts" ]; then
+        echo -e "${CYAN}# /usr/local/bin scripts:${NC}"
+        for script in "${REPO_DIR}/scripts"/*; do
+            if [ -f "$script" ]; then
+                echo "sudo cp $script /usr/local/bin/$(basename "$script")"
+                echo "sudo chmod +x /usr/local/bin/$(basename "$script")"
+            fi
+        done
+    fi
+    
+    echo
+    echo -e "${YELLOW}Copy and run the commands above to sync system files.${NC}"
+else
+    echo -e "${GREEN}=== Sync complete! ===${NC}"
+    echo -e "${YELLOW}Note: System files in /etc and /usr/local/bin were NOT synced.${NC}"
+    echo -e "${YELLOW}      Run with --system flag to see commands for syncing those.${NC}"
+fi
+
 echo -e "${BLUE}Tip: Run ./diff-with-system.sh to see any differences${NC}"

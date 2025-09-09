@@ -1,0 +1,8 @@
+[terminal]
+# run on VT7 to avoid sysd logs writing over greetd
+vt = 7
+
+[default_session]
+command = "tuigreet --time --remember --remember-session --asterisks --sessions /usr/share/wayland-sessions:/usr/share/xsessions"
+
+user = "greeter"

@@ -88,7 +88,6 @@ if [ -f "${REPO_DIR}/.gitconfig" ]; then
     fi
 fi
 
-# .vimrc (special case: system has it at ~/.vimrc, repo has it at .config/vim/.vimrc)
 if [ -f "${REPO_DIR}/.config/vim/.vimrc" ]; then
     if sync_item "$HOME/.vimrc" "${REPO_DIR}/.config/vim/.vimrc" ".vimrc"; then
         changes_made=true
@@ -97,7 +96,6 @@ fi
 
 echo
 
-# Sync .config subdirectories
 echo -e "${BLUE}=== Checking .config subdirectories ===${NC}"
 
 for repo_dir in "${REPO_DIR}/.config"/*; do
@@ -106,6 +104,50 @@ for repo_dir in "${REPO_DIR}/.config"/*; do
         system_dir="$HOME/.config/$dirname"
         
         if sync_item "$system_dir" "$repo_dir" ".config/$dirname"; then
+            changes_made=true
+        fi
+    fi
+done
+
+# Sync /etc files
+echo
+echo -e "${BLUE}=== Checking /etc configuration files ===${NC}"
+
+# Individual /etc files
+if sync_item "/etc/tlp.conf" "${REPO_DIR}/etc/tlp.conf" "/etc/tlp.conf"; then
+    changes_made=true
+fi
+
+if sync_item "/etc/greetd/config.toml" "${REPO_DIR}/etc/greetd/config.toml" "/etc/greetd/config.toml"; then
+    changes_made=true
+fi
+
+if sync_item "/etc/systemd/logind.conf" "${REPO_DIR}/etc/systemd/logind.conf" "/etc/systemd/logind.conf"; then
+    changes_made=true
+fi
+
+if sync_item "/etc/keyd/default.conf" "${REPO_DIR}/etc/keyd/default.conf" "/etc/keyd/default.conf"; then
+    changes_made=true
+fi
+
+# udev rules
+for rule_file in "${REPO_DIR}/etc/udev/rules.d"/*.rules; do
+    if [ -f "$rule_file" ]; then
+        rule_name=$(basename "$rule_file")
+        if sync_item "/etc/udev/rules.d/$rule_name" "$rule_file" "/etc/udev/rules.d/$rule_name"; then
+            changes_made=true
+        fi
+    fi
+done
+
+# Sync scripts
+echo
+echo -e "${BLUE}=== Checking /usr/local/bin scripts ===${NC}"
+
+for script in "${REPO_DIR}/scripts"/*; do
+    if [ -f "$script" ]; then
+        script_name=$(basename "$script")
+        if sync_item "/usr/local/bin/$script_name" "$script" "/usr/local/bin/$script_name"; then
             changes_made=true
         fi
     fi
