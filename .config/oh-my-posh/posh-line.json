@@ -1,0 +1,61 @@
+{
+  "$schema": "https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/schema.json",
+  "blocks": [
+    {
+      "alignment": "left",
+      "segments": [
+        {
+          "background": "transparent",
+          "foreground": "cyan",
+          "style": "plain",
+          "template": "{{ .UserName }} ",
+          "type": "session"
+        },
+        {
+          "background": "transparent",
+          "foreground": "green",
+          "properties": {
+            "style": "agnoster_short",
+            "folder_icon": "",
+            "home_icon": "~"
+          },
+          "style": "plain",
+          "template": "{{ .Path }}",
+          "type": "path"
+        },
+        {
+          "background": "transparent",
+          "foreground": "red",
+          "style": "plain",
+          "template": " git:({{ .HEAD }}{{ if or (.Working.Changed) (.Staging.Changed) }}*{{ end }})",
+          "type": "git"
+        },
+        {
+          "background": "transparent",
+          "foreground": "yellow",
+          "style": "plain",
+          "template": " ({{ .Venv }})",
+          "type": "python"
+        },
+        {
+          "background": "transparent",
+          "foreground_templates": [
+            "{{ if gt .Code 0 }}red{{ end }}",
+            "{{ if eq .Code 0 }}white{{ end }}"
+          ],
+          "style": "plain",
+          "template": " ➜ ",
+          "type": "status"
+        }
+      ],
+      "type": "prompt"
+    }
+  ],
+  "final_space": true,
+  "transient_prompt": {
+    "background": "transparent",
+    "foreground": "white",
+    "template": "➜ "
+  },
+  "version": 3
+}

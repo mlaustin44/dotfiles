@@ -1,0 +1,186 @@
+* {
+    font-family: "JetBrainsMono Nerd Font", "Font Awesome 6 Free";
+    font-size: 18px;
+    min-height: 0;
+}
+
+window#waybar {
+    background: rgba(13, 14, 20, 0.9);
+    color: #e0e5f0;
+    border-bottom: 2px solid #7aa2f7;
+}
+
+/* Workspaces */
+#workspaces {
+    margin: 4px;
+}
+
+#workspaces button {
+    padding: 0 8px;
+    margin: 0 2px;
+    color: #565f89;
+    background: rgba(86, 95, 137, 0.1);
+    border-radius: 6px;
+}
+
+#workspaces button.active {
+    color: #7aa2f7;
+    background: rgba(122, 162, 247, 0.3);
+}
+
+#workspaces button:hover {
+    background: rgba(122, 162, 247, 0.2);
+}
+
+/* All modules get boxes */
+#clock,
+#cpu,
+#memory,
+#battery,
+#network,
+#bluetooth,
+#pulseaudio,
+#backlight,
+#custom-exit,
+#custom-updates,
+#custom-notification,
+#tray {
+    padding: 0 12px;
+    margin: 4px 2px;
+    background: rgba(86, 95, 137, 0.1);
+    border-radius: 6px;
+    color: #e0e5f0;
+}
+
+#custom-resources {
+    background: rgba(125, 207, 255, 0.2);
+    color: #7dcfff;
+    padding: 0 16px;  /* Same padding as others */
+    margin: 4px 2px;   /* Same margin as others */
+    border-radius: 6px;  /* Same border radius */
+    /* Remove min-width - let it size naturally */
+}
+
+/* Window title */
+#window {
+    color: #7aa2f7;
+    padding: 0 10px;
+    margin: 4px 4px;
+}
+
+/* Clock special styling */
+#clock {
+    background: rgba(122, 162, 247, 0.2);
+    color: #7aa2f7;
+    font-weight: bold;
+}
+
+/* CPU/Memory */
+#cpu,
+#memory {
+    background: rgba(158, 206, 106, 0.2);
+    color: #9ece6a;
+}
+
+/* Network states */
+#network {
+    background: rgba(125, 207, 255, 0.2);
+    color: #7dcfff;
+}
+
+#network.disconnected,
+#network.disabled {
+    background: rgba(86, 95, 137, 0.1);
+    color: #565f89;
+}
+
+/* Bluetooth states */
+#bluetooth {
+    background: rgba(187, 154, 247, 0.2);
+    color: #bb9af7;
+}
+
+#bluetooth.disabled,
+#bluetooth.off {
+    background: rgba(86, 95, 137, 0.1);
+    color: #565f89;
+}
+
+/* Battery states */
+#battery {
+    background: rgba(158, 206, 106, 0.2);
+    color: #9ece6a;
+}
+
+#battery.warning {
+    background: rgba(224, 175, 104, 0.2);
+    color: #e0af68;
+}
+
+#battery.critical {
+    background: rgba(247, 118, 142, 0.3);
+    color: #f7768e;
+    animation: blink 1s linear infinite;
+}
+
+/* Audio */
+#pulseaudio {
+    background: rgba(125, 207, 255, 0.2);
+    color: #7dcfff;
+}
+
+#pulseaudio.muted {
+    background: rgba(86, 95, 137, 0.1);
+    color: #565f89;
+}
+
+/* Backlight */
+#backlight {
+    background: rgba(224, 175, 104, 0.2);
+    color: #e0af68;
+}
+
+/* Power button */
+#custom-exit {
+    background: rgba(247, 118, 142, 0.2);
+    color: #f7768e;
+    padding: 0 15px;
+}
+
+/* Updates */
+#custom-updates {
+    background: rgba(158, 206, 106, 0.2);
+    color: #9ece6a;
+}
+
+/* Notifications */
+#custom-notification {
+    background: rgba(187, 154, 247, 0.2);
+    color: #bb9af7;
+}
+
+/* Tray */
+#tray {
+    background: rgba(86, 95, 137, 0.1);
+}
+
+#tray > .passive {
+    -gtk-icon-effect: dim;
+}
+
+/* Tooltip */
+tooltip {
+    background: rgba(13, 14, 20, 0.95);
+    border: 1px solid #7aa2f7;
+    border-radius: 6px;
+}
+
+tooltip label {
+    color: #e0e5f0;
+    padding: 4px;
+}
+
+/* Animations */
+@keyframes blink {
+    50% { opacity: 0.5; }
+}

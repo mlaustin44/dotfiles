@@ -1,0 +1,10 @@
+[user]
+	name = Matthew Austin
+[core]
+	editor = vim
+[push]
+	autoSetupRemote = true
+[init]
+	defaultBranch = main
+[color]
+	ui = auto
