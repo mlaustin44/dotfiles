@@ -8,11 +8,12 @@ switch_hypridle() {
         CONFIG="$HOME/.config/hypr/hypridle-docked.conf"
     fi
     
-    # Only restart if config changed
-    CURRENT=$(pgrep -a hypridle | grep -oP '(?<=-c )\S+')
-    if [ "$CURRENT" != "$CONFIG" ]; then
+    # Update symlink and restart hypridle
+    CURRENT_LINK=$(readlink ~/.config/hypr/hypridle.conf)
+    if [ "$CURRENT_LINK" != "$CONFIG" ]; then
         pkill hypridle
-        hypridle -c "$CONFIG" &
+        ln -sf "$CONFIG" ~/.config/hypr/hypridle.conf
+        hypridle &> /dev/null &
     fi
 }
 
@@ -20,6 +21,11 @@ switch_hypridle() {
 switch_hypridle
 
 # Listen for Hyprland events
+if [ -z "$HYPRLAND_INSTANCE_SIGNATURE" ]; then
+    echo "Error: Not running under Hyprland"
+    exit 1
+fi
+
 handle() {
     case $1 in
         monitoradded* | monitorremoved* | focusedmon*)
@@ -28,6 +34,8 @@ handle() {
     esac
 }
 
-socat -U - UNIX-CONNECT:/tmp/hypr/$HYPRLAND_INSTANCE_SIGNATURE/.socket2.sock | while read -r line; do
+SOCKET_PATH="$XDG_RUNTIME_DIR/hypr/$HYPRLAND_INSTANCE_SIGNATURE/.socket2.sock"
+
+socat -U - UNIX-CONNECT:$SOCKET_PATH | while read -r line; do
     handle "$line"
 done
