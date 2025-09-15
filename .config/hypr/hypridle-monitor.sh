@@ -20,6 +20,11 @@ switch_hypridle() {
 # Initial switch on script start
 switch_hypridle
 
+# Ensure hypridle is running
+if ! pidof hypridle > /dev/null; then
+    hypridle &> /dev/null &
+fi
+
 # Listen for Hyprland events
 if [ -z "$HYPRLAND_INSTANCE_SIGNATURE" ]; then
     echo "Error: Not running under Hyprland"
