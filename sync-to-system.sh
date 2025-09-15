@@ -107,9 +107,9 @@ if [[ "$1" == "--system" ]]; then
     
     echo
     
-    if [ -d "${REPO_DIR}/scripts" ]; then
+    if [ -d "${REPO_DIR}/usr/local/bin" ]; then
         echo -e "${CYAN}# /usr/local/bin scripts:${NC}"
-        for script in "${REPO_DIR}/scripts"/*; do
+        for script in "${REPO_DIR}/usr/local/bin"/*; do
             if [ -f "$script" ]; then
                 echo "sudo cp $script /usr/local/bin/$(basename "$script")"
                 echo "sudo chmod +x /usr/local/bin/$(basename "$script")"

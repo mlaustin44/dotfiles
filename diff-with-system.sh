@@ -176,8 +176,8 @@ fi
 
 echo
 echo -e "${BLUE}=== /usr/local/bin Scripts ===${NC}"
-if [ -d "${REPO_DIR}/scripts" ]; then
-    for script in "${REPO_DIR}/scripts"/*; do
+if [ -d "${REPO_DIR}/usr/local/bin" ]; then
+    for script in "${REPO_DIR}/usr/local/bin"/*; do
         if [ -f "$script" ]; then
             script_name=$(basename "$script")
             diff_item "$script" "/usr/local/bin/$script_name" "/usr/local/bin/$script_name"

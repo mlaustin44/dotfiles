@@ -140,14 +140,19 @@ for rule_file in "${REPO_DIR}/etc/udev/rules.d"/*.rules; do
     fi
 done
 
-# Sync scripts
+# Sync /usr/local/bin scripts
 echo
 echo -e "${BLUE}=== Checking /usr/local/bin scripts ===${NC}"
 
-for script in "${REPO_DIR}/scripts"/*; do
-    if [ -f "$script" ]; then
-        script_name=$(basename "$script")
-        if sync_item "/usr/local/bin/$script_name" "$script" "/usr/local/bin/$script_name"; then
+# Create the usr/local/bin directory if it doesn't exist
+mkdir -p "${REPO_DIR}/usr/local/bin"
+
+# Sync all executable scripts from /usr/local/bin (excluding symlinks)
+for system_script in /usr/local/bin/*; do
+    if [ -f "$system_script" ] && [ ! -L "$system_script" ] && [ -x "$system_script" ]; then
+        script_name=$(basename "$system_script")
+        repo_script="${REPO_DIR}/usr/local/bin/$script_name"
+        if sync_item "$system_script" "$repo_script" "/usr/local/bin/$script_name"; then
             changes_made=true
         fi
     fi
