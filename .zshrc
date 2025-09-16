@@ -4,6 +4,8 @@ export PATH=$PATH:~/.cargo/bin/
 export PATH=$PATH:~/.local/bin/
 export PATH=$PATH:~/bin/
 
+ZSH_THEME="robbyrussell"
+
 plugins=(
     git
     sudo
@@ -26,8 +28,6 @@ HISTSIZE=10000
 SAVEHIST=10000
 setopt appendhistory
 
-# fancy posh terminal line
-eval "$(oh-my-posh init zsh --config $HOME/.config/oh-my-posh/posh-line.json)"
 
 # aliases to stuff
 alias ls='eza -a --icons=never'

@@ -1,9 +1,0 @@
-# Detect external monitor connection/disconnection
-ACTION=="change", SUBSYSTEM=="drm", ENV{DISPLAY}=":0", RUN+="/usr/local/bin/handle-lid-switch.sh"
-
-# Thunderbolt dock connection
-ACTION=="add", SUBSYSTEM=="thunderbolt", RUN+="/usr/local/bin/handle-lid-switch.sh"
-ACTION=="remove", SUBSYSTEM=="thunderbolt", RUN+="/usr/local/bin/handle-lid-switch.sh"
-
-# TypeC partner connection (for USB-C displays)
-ACTION=="add|remove", SUBSYSTEM=="typec", ENV{DEVTYPE}=="typec_partner", RUN+="/usr/local/bin/handle-lid-switch.sh"

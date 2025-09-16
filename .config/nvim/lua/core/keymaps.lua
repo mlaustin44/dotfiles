@@ -25,10 +25,10 @@ keymap.set("n", "n", "nzzzv")
 keymap.set("n", "N", "Nzzzv")
 
 -- remap delete to not override clipboard
-vim.keymap.set({"n", "v"}, "d", '"_d')
-vim.keymap.set({"n", "v"}, "D", '"_D')
-vim.keymap.set({"n", "v"}, "c", '"_c')
-vim.keymap.set({"n", "v"}, "C", '"_C')
-vim.keymap.set("n", "x", '"_x')
+keymap.set({"n", "v"}, "d", '"_d')
+keymap.set({"n", "v"}, "D", '"_D')
+keymap.set({"n", "v"}, "c", '"_c')
+keymap.set({"n", "v"}, "C", '"_C')
+keymap.set("n", "x", '"_x')
 
-vim.keymap.set('v', '<C-S-c>', '"+y')
+-- keymap.set('v', '<C-S-c>', '"+y')

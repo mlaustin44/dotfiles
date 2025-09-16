@@ -8,22 +8,20 @@ switch_hypridle() {
         CONFIG="$HOME/.config/hypr/hypridle-docked.conf"
     fi
     
-    # Update symlink and restart hypridle
-    CURRENT_LINK=$(readlink ~/.config/hypr/hypridle.conf)
-    if [ "$CURRENT_LINK" != "$CONFIG" ]; then
-        pkill hypridle
-        ln -sf "$CONFIG" ~/.config/hypr/hypridle.conf
-        hypridle &> /dev/null &
-    fi
+    # Kill any running hypridle first
+    pkill hypridle
+    sleep 1
+    
+    # Update symlink
+    ln -sf "$CONFIG" ~/.config/hypr/hypridle.conf
+    
+    # Start hypridle with new config
+    hypridle &> /dev/null &
+    sleep 1
 }
 
 # Initial switch on script start
 switch_hypridle
-
-# Ensure hypridle is running
-if ! pidof hypridle > /dev/null; then
-    hypridle &> /dev/null &
-fi
 
 # Listen for Hyprland events
 if [ -z "$HYPRLAND_INSTANCE_SIGNATURE" ]; then

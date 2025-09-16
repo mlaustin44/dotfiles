@@ -16,3 +16,5 @@ require("core.keymaps")
 
 -- Load plugins
 require("lazy").setup("plugins")
+
+vim.opt.clipboard = "unnamedplus"
