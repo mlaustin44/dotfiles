@@ -130,11 +130,29 @@ if sync_item "/etc/keyd/default.conf" "${REPO_DIR}/etc/keyd/default.conf" "/etc/
     changes_made=true
 fi
 
+# tuned profiles
+echo
+echo -e "${BLUE}=== Checking tuned profiles ===${NC}"
+for profile_dir in /etc/tuned/profiles/*; do
+    if [ -d "$profile_dir" ]; then
+        profile_name=$(basename "$profile_dir")
+        repo_profile_dir="${REPO_DIR}/etc/tuned/profiles/$profile_name"
+        
+        if sync_item "$profile_dir" "$repo_profile_dir" "/etc/tuned/profiles/$profile_name"; then
+            changes_made=true
+        fi
+    fi
+done
+
 # udev rules
-for rule_file in "${REPO_DIR}/etc/udev/rules.d"/*.rules; do
+echo
+echo -e "${BLUE}=== Checking udev rules ===${NC}"
+mkdir -p "${REPO_DIR}/etc/udev/rules.d"
+for rule_file in /etc/udev/rules.d/*.rules; do
     if [ -f "$rule_file" ]; then
         rule_name=$(basename "$rule_file")
-        if sync_item "/etc/udev/rules.d/$rule_name" "$rule_file" "/etc/udev/rules.d/$rule_name"; then
+        repo_rule="${REPO_DIR}/etc/udev/rules.d/$rule_name"
+        if sync_item "$rule_file" "$repo_rule" "/etc/udev/rules.d/$rule_name"; then
             changes_made=true
         fi
     fi

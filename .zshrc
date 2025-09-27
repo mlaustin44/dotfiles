@@ -41,16 +41,16 @@ alias vim='$EDITOR'
 export GOPATH=$HOME/go
 export PATH=$PATH:$GOPATH/bin:/usr/local/go/bin
 
-export PYENV_ROOT="$HOME/.pyenv"
-export PATH="$PYENV_ROOT/bin:$PATH"
-eval "$(pyenv init -)"
-
 # bind home and end to jump to beginning/end of line
 bindkey '\e[H' beginning-of-line
 bindkey '\e[F' end-of-line
 
 export PATH="$HOME/.npm-global/bin:$PATH"
 export PATH="/usr/bin:$PATH"
+
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init -)"
 
 export SYSTEMD_EDITOR=nvim
 

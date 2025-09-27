@@ -20,8 +20,8 @@
         "bluetooth",
         "network",
         "pulseaudio",
-        "backlight",
-        "battery",
+        "custom/backlight",
+        "custom/power-profile",
         "custom/notification",
         "custom/exit"
     ]

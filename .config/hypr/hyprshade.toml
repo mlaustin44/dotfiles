@@ -1,0 +1,7 @@
+[[shades]]
+name = "blue-light"
+default = true
+
+[[shades.scheduled]]
+start = "18:59"
+end = "06:59"

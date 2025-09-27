@@ -1,11 +1,12 @@
 #!/bin/bash
-
 switch_hypridle() {
-    # Check if eDP-1 is active
-    if hyprctl monitors | grep -q "Monitor eDP-1.*disabled: false"; then
+    # Check if eDP-1 exists and is enabled (need -A25 to reach the disabled line)
+    if hyprctl monitors | grep -A25 "Monitor eDP-1" | grep -q "disabled: false"; then
         CONFIG="$HOME/.config/hypr/hypridle-laptop.conf"
+        echo "Switching to laptop config"
     else
         CONFIG="$HOME/.config/hypr/hypridle-docked.conf"
+        echo "Switching to docked config"
     fi
     
     # Kill any running hypridle first
@@ -15,9 +16,10 @@ switch_hypridle() {
     # Update symlink
     ln -sf "$CONFIG" ~/.config/hypr/hypridle.conf
     
-    # Start hypridle with new config
-    hypridle &> /dev/null &
-    sleep 1
+    # Start hypridle in background
+    hypridle > /dev/null 2>&1 &
+    
+    echo "Started hypridle with $CONFIG"
 }
 
 # Initial switch on script start

@@ -1,0 +1,8 @@
+# Udev rule for automatic tuned profile switching based on AC power
+# Place in /etc/udev/rules.d/
+
+# Switch to plugged-normal when AC is connected
+SUBSYSTEM=="power_supply", ENV{POWER_SUPPLY_ONLINE}=="1", RUN+="/usr/bin/tuned-adm profile plugged-normal"
+
+# Switch to battery-normal when AC is disconnected
+SUBSYSTEM=="power_supply", ENV{POWER_SUPPLY_ONLINE}=="0", RUN+="/usr/bin/tuned-adm profile battery-normal"

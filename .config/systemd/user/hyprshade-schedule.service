@@ -1,0 +1,7 @@
+[Unit]
+Description=Update hyprshade sunset/sunrise schedule
+After=graphical-session.target
+
+[Service]
+Type=oneshot
+ExecStart=/home/mlaustin/.config/hyprshade/update-schedule.py

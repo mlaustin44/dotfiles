@@ -44,6 +44,8 @@ window#waybar {
 #custom-exit,
 #custom-updates,
 #custom-notification,
+#custom-backlight,
+#custom-power-profile,
 #tray {
     padding: 0 12px;
     margin: 4px 2px;
@@ -123,6 +125,32 @@ window#waybar {
     animation: blink 1s linear infinite;
 }
 
+/* Power Profile states */
+#custom-power-profile.saver {
+    background: rgba(158, 206, 106, 0.2);
+    color: #9ece6a;
+}
+
+#custom-power-profile.battery {
+    background: rgba(125, 207, 255, 0.2);
+    color: #7dcfff;
+}
+
+#custom-power-profile.balanced {
+    background: rgba(224, 175, 104, 0.2);
+    color: #e0af68;
+}
+
+#custom-power-profile.performance {
+    background: rgba(247, 118, 142, 0.2);
+    color: #f7768e;
+}
+
+#custom-power-profile.unknown {
+    background: rgba(86, 95, 137, 0.1);
+    color: #565f89;
+}
+
 /* Audio */
 #pulseaudio {
     background: rgba(125, 207, 255, 0.2);
@@ -157,6 +185,26 @@ window#waybar {
 #custom-notification {
     background: rgba(187, 154, 247, 0.2);
     color: #bb9af7;
+}
+
+#custom-backlight {
+    background: rgba(224, 175, 104, 0.2);
+    color: #e0af68;
+    padding: 0 12px;
+    margin: 4px 2px;
+    border-radius: 6px;
+}
+
+#custom-backlight.shade-on {
+    /* Warmer glow when shade is active */
+    background: rgba(224, 175, 104, 0.35);
+    color: #f0bf78;
+}
+
+#custom-backlight.shade-off {
+    /* Normal state */
+    background: rgba(224, 175, 104, 0.2);
+    color: #e0af68;
 }
 
 /* Tray */

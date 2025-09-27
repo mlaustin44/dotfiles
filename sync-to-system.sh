@@ -98,11 +98,28 @@ if [[ "$1" == "--system" ]]; then
         echo "sudo cp ${REPO_DIR}/etc/tlp.conf /etc/tlp.conf"
         echo "sudo cp ${REPO_DIR}/etc/keyd/default.conf /etc/keyd/default.conf"
         
-        for rule in "${REPO_DIR}/etc/udev/rules.d"/*.rules; do
-            if [ -f "$rule" ]; then
-                echo "sudo cp $rule /etc/udev/rules.d/$(basename "$rule")"
-            fi
-        done
+        if [ -d "${REPO_DIR}/etc/tuned/profiles" ]; then
+            echo
+            echo -e "${CYAN}# tuned profiles:${NC}"
+            for profile_dir in "${REPO_DIR}/etc/tuned/profiles"/*; do
+                if [ -d "$profile_dir" ]; then
+                    profile_name=$(basename "$profile_dir")
+                    echo "sudo mkdir -p /etc/tuned/profiles/$profile_name"
+                    echo "sudo cp -r $profile_dir/* /etc/tuned/profiles/$profile_name/"
+                fi
+            done
+        fi
+        
+        if [ -d "${REPO_DIR}/etc/udev/rules.d" ]; then
+            echo
+            echo -e "${CYAN}# udev rules:${NC}"
+            for rule in "${REPO_DIR}/etc/udev/rules.d"/*.rules; do
+                if [ -f "$rule" ]; then
+                    echo "sudo cp $rule /etc/udev/rules.d/$(basename "$rule")"
+                fi
+            done
+            echo "sudo udevadm control --reload-rules && sudo udevadm trigger"
+        fi
     fi
     
     echo

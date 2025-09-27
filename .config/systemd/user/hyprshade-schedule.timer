@@ -1,0 +1,10 @@
+[Unit]
+Description=Update hyprshade schedule daily at 3am
+After=graphical-session.target
+
+[Timer]
+OnCalendar=*-*-* 03:00:00
+Persistent=true
+
+[Install]
+WantedBy=timers.target

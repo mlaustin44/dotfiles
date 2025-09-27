@@ -1,0 +1,3 @@
+# Only trigger on display disconnection events
+ACTION=="remove", SUBSYSTEM=="drm", RUN+="/usr/local/bin/dock-handler.sh"
+ACTION=="add", SUBSYSTEM=="drm", RUN+="/usr/local/bin/dock-handler.sh"

@@ -98,6 +98,30 @@
     "on-click": "kitty --class battop-float -o 'color2=#00aa00' -o 'color10=#00ff00' -e battop"
   },
 
+  // Battery - opens btop
+  "battery": {
+    "interval": 5,
+    "states": {
+      "warning": 30,
+      "critical": 15
+    },
+    "format": "{icon} {capacity}%",
+    "format-charging": "\uf0e7 {capacity}%",
+    "format-plugged": "\uf1e6 {capacity}%",
+    "format-icons": ["\uf244", "\uf243", "\uf242", "\uf241", "\uf240"],
+    "on-click": "kitty --class battop-float -o 'color2=#00aa00' -o 'color10=#00ff00' -e battop"
+  },
+
+  // Power Profile with tuned integration
+  "custom/power-profile": {
+    "format": "{}",
+    "exec": "~/.config/waybar/scripts/power-profile.sh",
+    "return-type": "json",
+    "interval": 2,
+    "on-click": "kitty --class battop-float -o 'color2=#00aa00' -o 'color10=#00ff00' -e battop",
+    "on-click-right": "~/.config/waybar/scripts/power-profile-menu.sh"
+  },
+
   // Pulseaudio
   "pulseaudio": {
     "format": "{icon} {volume}%",
@@ -117,12 +141,22 @@
     "scroll-step": 5
   },
 
-  // Backlight - triggers hyprshade
   "backlight": {
     "format": "{icon} {percent}%",
     "format-icons": ["\uf0eb", "\uf0eb", "\uf0eb", "\uf0eb", "\uf0eb", "\uf0eb", "\uf0eb"],
     "scroll-step": 5,
     "on-click": "~/.config/hypr/scripts/hyprshade.sh"
+  },
+
+  "custom/backlight": {
+    "format": "{}",
+    "exec": "~/.config/waybar/scripts/backlight-shade.sh",
+    "return-type": "json",
+    "interval": 1,
+    "on-scroll-up": "brightnessctl set +5%",
+    "on-scroll-down": "brightnessctl set 5%-",
+    "on-click": "~/.config/waybar/scripts/hyprshade-toggle.sh",
+    "on-click-right": "~/.config/waybar/scripts/hyprshade-toggle.sh cycle-temp"
   },
 
   // Power Menu

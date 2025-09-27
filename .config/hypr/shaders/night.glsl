@@ -1,0 +1,1 @@
+/home/mlaustin/.config/hypr/shaders/night-4000k.glsl
