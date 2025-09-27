@@ -25,7 +25,7 @@ else
     CLASS="shade-off"
 fi
 
-TOOLTIP="Brightness: ${BRIGHTNESS}%\nNight Light: $SHADE_STATUS\nSchedule: $SUNSET - $SUNRISE\n\nScroll: Brightness | Click: Toggle | Right-click: Temperature"
+TOOLTIP="Brightness: ${BRIGHTNESS}%\nNight Light: $SHADE_STATUS\nSchedule: $SUNSET - $SUNRISE\n\nClick: Toggle | Right-click: Filter Menu"
 
 # Output with class for styling
 echo "{\"text\": \"\uf0eb ${BRIGHTNESS}%\", \"tooltip\": \"$TOOLTIP\", \"class\": \"$CLASS\"}"

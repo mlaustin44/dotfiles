@@ -78,6 +78,14 @@ for dir in "${REPO_DIR}/.config"/*; do
                     sync_item "$file" "$HOME/.config/vim/$(basename "$file")"
                 fi
             done
+        elif [ "$dirname" = "systemd" ]; then
+            # Handle systemd separately - only sync actual service/timer files, not symlinks
+            mkdir -p "$HOME/.config/systemd/user"
+            for file in "$dir/user"/*.{service,timer}; do
+                if [ -f "$file" ] && [ ! -L "$file" ]; then
+                    sync_item "$file" "$HOME/.config/systemd/user/$(basename "$file")"
+                fi
+            done
         else
             sync_item "$dir" "$HOME/.config/$dirname"
         fi

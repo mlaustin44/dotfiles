@@ -153,10 +153,8 @@
     "exec": "~/.config/waybar/scripts/backlight-shade.sh",
     "return-type": "json",
     "interval": 1,
-    "on-scroll-up": "brightnessctl set +5%",
-    "on-scroll-down": "brightnessctl set 5%-",
     "on-click": "~/.config/waybar/scripts/hyprshade-toggle.sh",
-    "on-click-right": "~/.config/waybar/scripts/hyprshade-toggle.sh cycle-temp"
+    "on-click-right": "~/.config/waybar/scripts/hyprshade-menu.sh"
   },
 
   // Power Menu

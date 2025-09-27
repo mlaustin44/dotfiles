@@ -103,7 +103,27 @@ for repo_dir in "${REPO_DIR}/.config"/*; do
         dirname=$(basename "$repo_dir")
         system_dir="$HOME/.config/$dirname"
         
+        # Skip systemd directory - handled separately below
+        if [ "$dirname" = "systemd" ]; then
+            continue
+        fi
+        
         if sync_item "$system_dir" "$repo_dir" ".config/$dirname"; then
+            changes_made=true
+        fi
+    fi
+done
+
+# Sync systemd user services and timers (excluding symlinks)
+echo
+echo -e "${BLUE}=== Checking systemd user services/timers ===${NC}"
+mkdir -p "${REPO_DIR}/.config/systemd/user"
+
+for system_file in "$HOME/.config/systemd/user"/*.{service,timer}; do
+    if [ -f "$system_file" ] && [ ! -L "$system_file" ]; then
+        filename=$(basename "$system_file")
+        repo_file="${REPO_DIR}/.config/systemd/user/$filename"
+        if sync_item "$system_file" "$repo_file" ".config/systemd/user/$filename"; then
             changes_made=true
         fi
     fi
